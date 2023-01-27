@@ -46,6 +46,7 @@ Challenge Company 2 : Goldman Sachs
 <hr>
 
 Company 3 : Adobe
+
 <br/>01-Fraction to a recurring Decimal
 <br/>02-Increasing Triplet Sequence
 <br/>03-Kth smallest in Lexographical Order
@@ -63,7 +64,9 @@ Company 3 : Adobe
 <br/>15-Kth smallest Trimmed number
 
 <hr>
+
 Company 4 : Flipkart
+
 <br/>01-Partition to K Equal Sum Subsets
 <br/>02-Sale and Offers at Flipkart BBD
 <br/>03-Remove Zero Sum Consecutive Nodes
@@ -81,6 +84,7 @@ Company 4 : Flipkart
 <br/>15-House Robber - Very Imp.
 
 <hr>
+
 Company 5 : Google
 
 <br/>01-Maximum Consecutive Floors Without Special Floors
@@ -100,7 +104,9 @@ Company 5 : Google
 <br/>015-Max Compatibility Score
 
 <hr>
+
 Company 6 : Amazon 
+
 <br/>01-Shuffle an array
 <br/>02-Cheapest Flights with K stops (Flight system in Europe)
 <br/>03-Split String into maximum number of Unique Substrings
