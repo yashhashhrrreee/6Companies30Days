@@ -1,22 +1,18 @@
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
-        ips = []
 
-        if 4 < len(s) > 12:
-            return ips
-
-        def _valid_section(x):
-            if not len(x) or (len(x) > 1 and x[0] == "0") or (int(x) > 255):
+        def isValid(s):
+            if not s or int(s) > 255 or (s[0] == '0' and s != "0"):
                 return False
             return True
 
-        for i0 in range(1, 4):
-            for i1 in range(1, 4):
-                for i2 in range(1, 4):
-                    _ip = s[:i0]+'.'+s[i0:i0+i1] + \
-                        '.'+s[i0+i1:i0+i1+i2]+'.'+s[i0+i1+i2:]
-
-                    if all(map(_valid_section, _ip.split('.'))):
-                        ips.append(_ip)
-
-        return ips
+        if len(s) < 4 or len(s) > 16:
+            return []
+        ans = []
+        for i in range(1,4):
+            for j in range(i+1,i+5):
+                for k in range(j+1,j+5):
+                    first, second, third, last = s[0:i], s[i:j], s[j:k], s[k:]
+                    if isValid(first) and isValid(second) and isValid(third) and isValid(last):
+                        ans.append(first + '.' + second + '.' + third + '.' + last)
+        return ans
