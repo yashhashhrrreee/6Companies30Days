@@ -1,29 +1,80 @@
 class Solution:
     def numMatchingSubseq(self, s: str, words: List[str]) -> int:
-        # radix
-        R = 26
+        """
+        # OPTIMAL Approach
+        # create wordMap = {a: [a, acd, ace], b: [bb] ...}
+        # on each iter it becomes {a:[], b: [b], c: [cd, ce] ...} and small
+        # Time Complexity: O(n) + O(m)  
+        """
         
-        def char_to_int(ch: chr) -> int:
-            return ord(ch) - ord('a')
+        count = 0
+        wordMap = defaultdict(list)
         
-        # preprocessng
-        recent_ind = [len(s)] * R
-        next_char = [()] * len(s) # next_char[i][j] gives next ind of char j after an index i
-        
-        for i in range(len(s) - 1, -1, -1):
-            next_char[i] = tuple(recent_ind) # R operations
-            recent_ind[char_to_int(s[i])] = i
-        
-        # processing
-        res = 0
-        for word in words: # loop through words
-            cur = recent_ind[char_to_int(word[0])] # start at first letter
-            for i in range(1, len(word)): # find if next_char exists for all chars in word
-                if not cur < len(s):
-                    break
-                cur = next_char[cur][char_to_int(word[i])] # go to index of next char
+        for w in words:
+            wordMap[w[0]].append(w)
             
-            if cur < len(s): # if next char exists for all chars, add 1 to answer
-                res += 1
+        for c in s:
+            wordList = wordMap[c]
+            wordMap[c] = []
+            
+            for w in wordList:
+                if len(w) == 1:
+                    count += 1
+                else:
+                    wordMap[w[1]].append(w[1:])
+                    
+                    
+        return count
+                    
         
-        return res
+        
+        """
+        # Brute Force 2 (ACCEPTED)
+        # Time Complexity: O(kn) + O(m) (Approx. O(kn))
+        # Where, k = num of unique subseq in words, m = len(words)
+		# n = len(s)
+        """
+        count = 0
+        seqInWords = {}
+        
+        for seq in words:
+            seqInWords[seq] = 1 + seqInWords.get(seq, 0)
+            
+        for seq in seqInWords:
+            n = len(seq)
+            i = 0
+            
+            for c in s:
+                if i == n: break
+                if c == seq[i]: i += 1
+                    
+            if i == n: count += seqInWords[seq]
+                
+        return count
+        
+        
+        
+        """
+        # brute force 1
+        """
+        
+        count = 0
+        for seq in words:
+            n = len(seq)
+            i = 0
+            idx = -1
+            for x in range(len(seq)):
+                c = seq[x]
+                ind = idx+1
+                while ind < len(s):
+                    if c == s[ind]:
+                        idx = ind
+                        i += 1
+                        break
+                        
+                    ind += 1
+                    
+            if i == n: count += 1
+                    
+        return count
+                    
